@@ -312,7 +312,7 @@ MAVIS is built as a robust 4-layer architecture separating telephony audio, mult
    - Reconnect call.
    - Click **"1. Yes, I consent"**.
    - Click **"2. Orthopedics (Knee Pain)"** (*"I have severe knee pain and swelling for 3 days after playing football, pain scale 7 out of 10"*).
-   - **Result**: Triage evaluates urgency, selects Orthopedics department, queries doctor availability, reserves the slot with Dr. Anita Desai, and presents a green confirmation card with a Token ID (e.g., `ORTH-20261020-002`).
+   - **Result**: Triage evaluates urgency, selects Orthopedics department, queries doctor availability, reserves the slot with Dr. D (Orthopedics, Room OPD-104), and presents a green confirmation card with a Token ID (e.g., `ORTH-20261020-002`).
 4. **Test Barge-In / Interruption**:
    - While the agent is speaking, click **"⚡ Trigger Barge-in"**.
    - **Result**: The agent's speech pauses immediately, simulating real-time human voice interruption.
@@ -322,11 +322,11 @@ MAVIS is built as a robust 4-layer architecture separating telephony audio, mult
 ### 2. Patient Portal (`🎫 Patient Portal` tab)
 
 1. Navigate to the **Patient Portal** tab (accessible publicly without login).
-2. Enter any Token ID, for example: `CARD-20261020-001` or `ORTH-20261020-001`.
+2. Enter any Token ID, for example: `CARD-20261020-001`, `OPHT-20261020-001`, or `ORTH-20261020-001`.
 3. Click **"Check Status →"**.
 4. You will see:
    - Live queue position (e.g., `#1`, `0 patients ahead`).
-   - Assigned Doctor (`Dr. Priya Sharma`) & Room (`OPD-101`).
+   - Assigned Doctor (`Dr. B` for Cardiology, `Dr. A` for Ophthalmology, or `Dr. D` for Orthopedics) & Room Number.
    - Scheduled Time Slot.
    - Status (`IN_QUEUE`, `IN_CONSULTATION`, or `COMPLETED`).
    - The card automatically polls every 10 seconds for real-time queue movement!
@@ -336,7 +336,10 @@ MAVIS is built as a robust 4-layer architecture separating telephony audio, mult
 ### 3. Doctor Portal (`🩺 Doctor Portal` tab)
 
 1. Click the **"Staff Login"** button in the top navigation bar.
-2. Click the quick-fill button **"Doctor (Cardiology)"** (`priya.sharma@mavis.hospital` / `doctor123`).
+2. Click any of the quick-fill buttons, for example:
+   - **"Dr. B (Cardiology)"** (`dr.b@mavis.hospital` / `doctor123`)
+   - **"Dr. A (Ophthalmology)"** (`dr.a@mavis.hospital` / `doctor123`)
+   - **"Dr. D (Orthopedics)"** (`dr.d@mavis.hospital` / `doctor123`)
 3. Click **"Authenticate with JWT →"**.
 4. Inside the Doctor Dashboard:
    - View your active patient queue for today.
@@ -349,7 +352,7 @@ MAVIS is built as a robust 4-layer architecture separating telephony audio, mult
 
 ### 4. Admin Portal & Tamper-Evident Audit (`🛡️ Admin & Audit` tab)
 
-1. Log in using the **"Hospital Admin"** quick-fill button (`admin@mavis.hospital` / `admin123`).
+1. Log in using the **"Admin"** quick-fill button (`admin@mavis.hospital` / `admin123`).
 2. Navigate to **"🛡️ Admin & Audit"**.
 3. View operational metrics:
    - Call completion rate (94.2%)
@@ -366,18 +369,25 @@ MAVIS is built as a robust 4-layer architecture separating telephony audio, mult
 
 ## 🔑 Pre-Seeded Demo Accounts & Sample Tokens
 
-### Ready Staff Credentials
-| Portal | Role | Email Address | Password | Permissions |
-| :--- | :--- | :--- | :--- | :--- |
-| **Doctor Portal** | `DOCTOR` | `priya.sharma@mavis.hospital` | `doctor123` | View Cardiology queue, inspect AI Handoff Briefs, update consultation state, initiate follow-ups. |
-| **Doctor Portal** | `DOCTOR` | `rajesh.kumar@mavis.hospital` | `doctor123` | View Neurology queue and patient handoff briefs. |
-| **Admin Portal** | `ADMIN` | `admin@mavis.hospital` | `admin123` | Operational metrics, view all audit records, verify cryptographic hash chain. |
-| **Patient Portal** | `PATIENT` | *Public Access* | *None* | Lookup appointment status and queue position using Token ID. |
+### Ready Staff Credentials (All 6 Doctors & Admin)
+| Portal | Role | Name | Department | Email Address | Password | Room | Permissions |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| **Doctor Portal** | `DOCTOR` | **Dr. A** | Ophthalmology | `dr.a@mavis.hospital` | `doctor123` | OPD-101 | Ophthalmology queue, AI Handoff Briefs, consultations. |
+| **Doctor Portal** | `DOCTOR` | **Dr. B** | Cardiology | `dr.b@mavis.hospital` | `doctor123` | OPD-102 | Cardiology queue, AI Handoff Briefs, consultations & follow-ups. |
+| **Doctor Portal** | `DOCTOR` | **Dr. C** | Dermatology | `dr.c@mavis.hospital` | `doctor123` | OPD-103 | Dermatology queue, AI Handoff Briefs, consultations. |
+| **Doctor Portal** | `DOCTOR` | **Dr. D** | Orthopedics | `dr.d@mavis.hospital` | `doctor123` | OPD-104 | Orthopedics queue, AI Handoff Briefs, consultations. |
+| **Doctor Portal** | `DOCTOR` | **Dr. E** | ENT | `dr.e@mavis.hospital` | `doctor123` | OPD-105 | ENT queue, AI Handoff Briefs, consultations. |
+| **Doctor Portal** | `DOCTOR` | **Dr. F** | General Medicine | `dr.f@mavis.hospital` | `doctor123` | OPD-106 | General Medicine queue, AI Handoff Briefs, consultations. |
+| **Admin Portal** | `ADMIN` | **Admin Director** | Administration | `admin@mavis.hospital` | `admin123` | Admin Desk | Operational telemetry metrics, doctor management, SHA-256 audit verification. |
+| **Patient Portal** | `PATIENT` | *Public Access* | All | *None (Public)* | *None* | N/A | Enter Token ID to view live queue position, doctor, and room. |
+
+> 💡 **Quick-Fill Buttons**: When you open the **Staff Login** modal on the web portal, you can simply click any of the doctor buttons (`Dr. A`, `Dr. B`, `Dr. C`, `Dr. D`, `Dr. E`, `Dr. F`) or `Admin` to automatically populate the email and password!
 
 ### Ready Sample Tokens (Patient Portal)
-- `CARD-20261020-001` (Cardiology • Patient: Aarav Mehta • Dr. Priya Sharma)
-- `NEUR-20261020-001` (Neurology • Patient: Meera Sen • Dr. Rajesh Kumar)
-- `ORTH-20261020-001` (Orthopedics • Patient: Rohan Gupta • Dr. Anita Desai)
+You can enter any of these pre-seeded tokens into the **Patient Portal** to test live queue lookup:
+- `CARD-20261020-001` (Cardiology • Patient: Aarav Mehta • Dr. B • Room OPD-102)
+- `OPHT-20261020-001` (Ophthalmology • Patient: Meera Sen • Dr. A • Room OPD-101)
+- `ORTH-20261020-001` (Orthopedics • Patient: Rohan Gupta • Dr. D • Room OPD-104)
 
 ---
 
