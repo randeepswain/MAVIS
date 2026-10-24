@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MAVIS — Multi-Agent Voice Intake System</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              blue: '#0084ff',
+              darkblue: '#0066ee',
+              navy: '#1e1b4b',
+              light: '#f0f7ff',
+              accent: '#0284c7'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="/static/img/logo.svg">
+  
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body class="bg-[#f0f7ff] text-slate-700 min-h-screen w-screen max-w-full overflow-x-hidden">
+
+  <!-- ========================================================================= -->
+  <!-- STANDALONE LOGIN PAGE (DEFAULT ROOT ROUTE: 2 BOXES PATIENT & STAFF) -->
+  <!-- ========================================================================= -->
+  <div id="view-login" class="min-h-screen w-full flex flex-col justify-between bg-gradient-to-br from-blue-50/90 via-white to-blue-50/60 p-4 sm:p-8 lg:p-12">
+    
+    <!-- Top Bar: Logo & Operational Badge -->
+    <div class="w-full flex items-center justify-between pb-6 border-b border-slate-200/60">
+      <div class="flex items-center space-x-3.5">
+        <div class="w-12 h-12 rounded-2xl shadow-md shadow-blue-500/25 overflow-hidden flex items-center justify-center flex-shrink-0">
+          <img src="/static/img/logo.svg" alt="MAVIS Logo" class="w-full h-full object-cover block">
+        </div>
+        <div>
+          <span class="text-2xl font-black text-[#0084ff] tracking-tight font-['Outfit']">MAVIS</span>
+          <p class="text-[11px] text-slate-500 font-semibold tracking-wide">Multi-Agent Voice Intake System</p>
+        </div>
+      </div>
+      <div class="hidden sm:inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 text-xs font-semibold">
+        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+        <span>All Clinical OPD Services Operational</span>
+      </div>
+    </div>
+
+    <!-- Center Section: The 2 Role Boxes (Patient vs Staff) -->
+    <div class="w-full max-w-5xl mx-auto py-8 sm:py-12 space-y-8">
+      
+      <div class="text-center space-y-2 max-w-2xl mx-auto">
+        <div class="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full bg-blue-100/70 text-[#0084ff] border border-blue-200 text-xs font-mono font-bold">
+          <span>HOSPITAL ACCESS GATEWAY</span>
+        </div>
+        <h1 class="text-3xl sm:text-5xl font-black text-[#1e1b4b] font-['Outfit'] tracking-tight">
+          Welcome to MAVIS Portal
+        </h1>
+        <p class="text-slate-600 text-sm sm:text-base leading-relaxed">
+          Select your access role below to proceed into the system. Patients require <strong>zero login credentials</strong>. Medical staff and administrators sign in with verified credentials.
+        </p>
+      </div>
+
+      <!-- The 2 Boxes -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 items-stretch">
+        
+        <!-- Box 1: Patient Access (Zero Login Required) -->
+        <div class="p-8 sm:p-10 rounded-3xl border-2 border-[#0084ff] bg-gradient-to-b from-blue-50/70 to-white text-left transition hover:shadow-2xl relative flex flex-col justify-between shadow-lg">
+          <div>
+            <div class="flex items-center justify-between mb-6">
+              <div class="w-16 h-16 rounded-2xl bg-[#0084ff] text-white flex items-center justify-center font-bold text-3xl shadow-md">
+                🎫
+              </div>
+              <span class="px-3.5 py-1 rounded-full text-[11px] font-black uppercase tracking-wider bg-emerald-100 text-emerald-800 border border-emerald-300 shadow-sm">
+                ✓ ZERO LOGIN REQUIRED
+              </span>
+            </div>
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-[#1e1b4b] font-['Outfit']">Patient Portal</h2>
+            <p class="text-sm text-slate-600 mt-2 leading-relaxed">
+              Public access for all hospital patients. Track your scheduled OPD consultation, check live queue position, doctor room number, and monitor post-visit follow-up status.
+            </p>
+            
+            <div class="mt-6 p-4 rounded-2xl bg-white border border-blue-200 text-xs text-slate-600 space-y-2.5">
+              <div class="flex items-center space-x-2 font-bold text-[#1e1b4b]">
+                <span class="text-emerald-500 font-bold">✓</span>
+                <span>Direct Access (No Username or Password Needed)</span>
+              </div>
+              <div class="flex items-center space-x-2">
+                <span class="text-blue-500 font-bold">✓</span>
+                <span>Track live appointment via Token ID</span>
+              </div>
+              <div class="flex items-center space-x-2">
+                <span class="text-indigo-500 font-bold">✓</span>
+                <span>Speak directly with Autonomous Voice AI Triage</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-8 pt-4 border-t border-blue-100">
+            <button onclick="window.mavisApp.enterAsPatient()" class="w-full py-4 rounded-full font-extrabold text-sm btn-primary shadow-xl flex items-center justify-center space-x-2 transition hover:scale-[1.02]">
+              <span>Enter as Patient (No Login Required)</span>
+              <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Box 2: Staff & Admin Access (Credentials Required) -->
+        <div class="p-8 sm:p-10 rounded-3xl border-2 border-slate-200 hover:border-indigo-500 bg-white hover:bg-indigo-50/10 text-left transition hover:shadow-2xl relative flex flex-col justify-between shadow-lg">
+          <div>
+            <div class="flex items-center justify-between mb-6">
+              <div class="w-16 h-16 rounded-2xl bg-indigo-600 text-white flex items-center justify-center font-bold text-3xl shadow-md">
+                🩺
+              </div>
+              <span class="px-3.5 py-1 rounded-full text-[11px] font-black uppercase tracking-wider bg-amber-100 text-amber-800 border border-amber-300 shadow-sm">
+                🔒 CREDENTIALS REQUIRED
+              </span>
+            </div>
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-[#1e1b4b] font-['Outfit']">Staff & Admin Portal</h2>
+            <p class="text-sm text-slate-600 mt-2 leading-relaxed">
+              Restricted role-based portal for verified attending physicians and hospital administrative directors. Review AI clinical handoff briefs, manage queues, and view audit telemetry.
+            </p>
+
+            <!-- Staff Login Form -->
+            <form onsubmit="event.preventDefault(); window.mavisApp.handleLogin();" class="mt-6 space-y-3.5">
+              <div>
+                <label class="block text-xs font-bold text-slate-700 mb-1">Staff Email Address</label>
+                <input id="login-email" type="email" required placeholder="dr.b@mavis.hospital" value="dr.b@mavis.hospital" class="w-full bg-white border border-slate-300 focus:border-[#0084ff] focus:ring-2 focus:ring-blue-100 rounded-xl px-3.5 py-2.5 text-xs text-slate-800 font-medium">
+              </div>
+              <div>
+                <label class="block text-xs font-bold text-slate-700 mb-1">Password</label>
+                <input id="login-password" type="password" required placeholder="••••••••" value="doctor123" class="w-full bg-white border border-slate-300 focus:border-[#0084ff] focus:ring-2 focus:ring-blue-100 rounded-xl px-3.5 py-2.5 text-xs text-slate-800 font-medium">
+              </div>
+
+              <!-- Quick Demo 1-Click Fill -->
+              <div class="bg-blue-50/60 p-3 rounded-2xl border border-blue-100 text-[11px] space-y-1.5">
+                <span class="text-slate-600 font-bold block">Quick Demo Roles (1-Click Fill):</span>
+                <div class="flex flex-wrap gap-1.5">
+                  <button type="button" onclick="document.getElementById('login-email').value='dr.a@mavis.hospital'; document.getElementById('login-password').value='doctor123';" class="px-2.5 py-1 rounded-full bg-white text-[#0084ff] border border-blue-200 font-bold shadow-sm hover:bg-blue-50">
+                    Dr. A (Ophthalmology)
+                  </button>
+                  <button type="button" onclick="document.getElementById('login-email').value='dr.b@mavis.hospital'; document.getElementById('login-password').value='doctor123';" class="px-2.5 py-1 rounded-full bg-white text-[#0084ff] border border-blue-200 font-bold shadow-sm hover:bg-blue-50">
+                    Dr. B (Cardiology)
+                  </button>
+                  <button type="button" onclick="document.getElementById('login-email').value='dr.c@mavis.hospital'; document.getElementById('login-password').value='doctor123';" class="px-2.5 py-1 rounded-full bg-white text-[#0084ff] border border-blue-200 font-bold shadow-sm hover:bg-blue-50">
+                    Dr. C (Dermatology)
+                  </button>
+                  <button type="button" onclick="document.getElementById('login-email').value='dr.d@mavis.hospital'; document.getElementById('login-password').value='doctor123';" class="px-2.5 py-1 rounded-full bg-white text-[#0084ff] border border-blue-200 font-bold shadow-sm hover:bg-blue-50">
+                    Dr. D (Orthopedics)
+                  </button>
+                  <button type="button" onclick="document.getElementById('login-email').value='dr.e@mavis.hospital'; document.getElementById('login-password').value='doctor123';" class="px-2.5 py-1 rounded-full bg-white text-[#0084ff] border border-blue-200 font-bold shadow-sm hover:bg-blue-50">
+                    Dr. E (ENT)
+                  </button>
+                  <button type="button" onclick="document.getElementById('login-email').value='dr.f@mavis.hospital'; document.getElementById('login-password').value='doctor123';" class="px-2.5 py-1 rounded-full bg-white text-[#0084ff] border border-blue-200 font-bold shadow-sm hover:bg-blue-50">
+                    Dr. F (General Medicine)
+                  </button>
+                  <button type="button" onclick="document.getElementById('login-email').value='admin@mavis.hospital'; document.getElementById('login-password').value='admin123';" class="px-2.5 py-1 rounded-full bg-white text-indigo-700 border border-indigo-200 font-bold shadow-sm hover:bg-indigo-50">
+                    Hospital Admin
+                  </button>
+                </div>
+              </div>
+
+              <button type="submit" class="w-full py-3.5 rounded-full font-extrabold text-sm bg-indigo-600 hover:bg-indigo-700 text-white shadow-xl flex items-center justify-center space-x-2 transition hover:scale-[1.02]">
+                <span>Authenticate & Sign In (JWT)</span>
+                <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+              </button>
+            </form>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Bottom Bar -->
+    <div class="w-full text-center text-xs text-slate-500 pt-6 border-t border-slate-200/60">
+      MAVIS • Multi-Agent Voice Intake System
+    </div>
+
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- MAIN APPLICATION INTERFACE (DISPLAYED AFTER AUTHENTICATION / ROLE ENTRY) -->
+  <!-- ========================================================================= -->
+  <div id="app-container" class="hidden flex flex-col min-h-screen w-full">
+    
+    <!-- ========================================================================= -->
+    <!-- NAVBAR COMPONENT: STRICTLY PUSH ELEMENTS TO EDGES (JUSTIFY-BETWEEN) -->
+    <!-- LOGO AT EXTREME LEFT, ALL OTHER NAV + LOGOUT AT EXTREME RIGHT, NONE CENTERED -->
+    <!-- ========================================================================= -->
+    <header class="glass-nav sticky top-0 z-50 w-full bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-sm">
+      <div class="navbar-wrapper w-full px-6 lg:px-12 h-20 flex items-center justify-between">
+        
+        <!-- EXTREME LEFT: Application Logo -->
+        <div class="navbar-logo-left flex items-center space-x-3.5 cursor-pointer flex-shrink-0" onclick="window.mavisApp.switchView('home')">
+          <div class="w-12 h-12 rounded-2xl shadow-md shadow-blue-500/25 overflow-hidden flex items-center justify-center flex-shrink-0 transition hover:scale-105">
+            <img src="/static/img/logo.svg" alt="MAVIS Logo" class="w-full h-full object-cover block">
+          </div>
+          <div>
+            <div class="flex items-baseline">
+              <span class="text-2xl font-black text-[#0084ff] tracking-tight font-['Outfit']">MAVIS</span>
+            </div>
+            <p class="text-[11px] text-slate-500 font-semibold tracking-wide">Multi-Agent Voice Intake System</p>
+          </div>
+        </div>
+
+        <!-- EXTREME RIGHT: All navigation tabs, user session info, and Logout button (Grouped Together) -->
+        <div class="navbar-group-right flex items-center space-x-3 sm:space-x-6 flex-shrink-0">
+          
+          <!-- Navigation Tabs -->
+          <nav class="hidden md:flex items-center space-x-1 sm:space-x-4 text-sm font-semibold">
+            <button id="nav-home" onclick="window.mavisApp.switchView('home')" class="px-3 py-2 text-[#0084ff] border-b-2 border-[#0084ff] transition">
+              Home
+            </button>
+            <button id="nav-voice" onclick="window.mavisApp.switchView('voice')" class="px-3 py-2 text-slate-600 hover:text-[#0084ff] transition">
+              Voice Intake
+            </button>
+            <button id="nav-patient" onclick="window.mavisApp.switchView('patient')" class="px-3 py-2 text-slate-600 hover:text-[#0084ff] transition">
+              Patient Portal
+            </button>
+            <button id="nav-doctor" onclick="window.mavisApp.switchView('doctor')" class="hidden px-3 py-2 text-slate-600 hover:text-[#0084ff] transition">
+              Doctor Portal
+            </button>
+            <button id="nav-admin" onclick="window.mavisApp.switchView('admin')" class="hidden px-3 py-2 text-slate-600 hover:text-[#0084ff] transition">
+              Admin & Audit
+            </button>
+          </nav>
+
+          <!-- Staff User Session Info (Shown when staff authenticated) -->
+          <div id="auth-user-info" class="hidden text-xs text-right"></div>
+
+          <!-- Visible Logout Button -->
+          <button id="nav-logout-btn" onclick="window.mavisApp.handleLogout()" class="px-5 py-2 rounded-full text-xs font-bold bg-rose-50 text-rose-600 border border-rose-200 hover:bg-rose-600 hover:text-white transition shadow-sm flex-shrink-0">
+            Logout
+          </button>
+
+        </div>
+
+      </div>
+    </header>
+
+    <!-- Mobile Navigation Tab Bar -->
+    <div class="md:hidden flex justify-around bg-white border-b border-slate-200 text-xs py-2.5 shadow-sm w-full px-2">
+      <button id="mobile-nav-home" onclick="window.mavisApp.switchView('home')" class="px-2 py-1 text-[#0084ff] font-bold">Home</button>
+      <button id="mobile-nav-voice" onclick="window.mavisApp.switchView('voice')" class="px-2 py-1 text-slate-600 font-medium">Voice</button>
+      <button id="mobile-nav-patient" onclick="window.mavisApp.switchView('patient')" class="px-2 py-1 text-slate-600 font-medium">Patient</button>
+      <button id="mobile-nav-doctor" onclick="window.mavisApp.switchView('doctor')" class="hidden px-2 py-1 text-slate-600 font-medium">Doctor</button>
+      <button id="mobile-nav-admin" onclick="window.mavisApp.switchView('admin')" class="hidden px-2 py-1 text-slate-600 font-medium">Admin</button>
+      <button id="mobile-nav-logout" onclick="window.mavisApp.handleLogout()" class="px-2 py-1 text-rose-600 font-bold">Logout</button>
+    </div>
+
+    <!-- Main Container: Full screen width, no constrained max-widths -->
+    <main class="flex-1 w-full px-6 lg:px-12 py-8 space-y-12">
+
+      <!-- ========================================================================= -->
+      <!-- VIEW 0: HOME LANDING PAGE -->
+      <!-- ========================================================================= -->
+      <section id="view-home" class="space-y-12 w-full">
+
+        <!-- Hero Banner (Matches Reference Design) -->
+        <div class="relative bg-gradient-to-r from-blue-50/70 via-white to-blue-50/50 rounded-3xl p-6 sm:p-10 lg:p-12 border border-blue-100 shadow-sm overflow-hidden w-full">
+          <div class="absolute -left-12 -bottom-12 w-48 h-48 bg-blue-200/40 rounded-full blur-2xl pointer-events-none"></div>
+          <div class="absolute right-0 top-0 w-96 h-96 bg-sky-200/30 rounded-full blur-3xl pointer-events-none"></div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
+            <div class="lg:col-span-7 space-y-6">
+              <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-blue-100/70 text-[#0084ff] border border-blue-200 text-xs font-bold">
+                <span class="w-2 h-2 rounded-full bg-[#0084ff] animate-ping"></span>
+                <span>NEXT-GEN AUTONOMOUS VOICE HOSPITAL SYSTEM</span>
+              </div>
+
+              <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black text-[#1e1b4b] tracking-tight leading-[1.15] font-['Outfit']">
+                Your Partner In Health<br>and Wellness
+              </h1>
+
+              <p class="text-slate-600 text-base sm:text-lg max-w-xl leading-relaxed">
+                Instant voice AI clinical triage, zero-tolerance emergency red-flag safety, deterministic double-booking prevention, and seamless post-consultation care.
+              </p>
+
+              <div class="flex flex-wrap items-center gap-4 pt-2">
+                <button onclick="window.mavisApp.switchView('voice'); document.getElementById('btn-start-call').scrollIntoView({behavior:'smooth'});" class="px-8 py-4 text-sm font-extrabold btn-primary shadow-xl tracking-wide uppercase">
+                  BOOK AN APPOINTMENT
+                </button>
+                <button onclick="window.mavisApp.switchView('patient')" class="px-6 py-4 text-sm font-bold btn-secondary shadow-sm">
+                  Track Appointment Token →
+                </button>
+              </div>
+
+              <div class="grid grid-cols-3 gap-4 pt-4 border-t border-slate-200/70 text-xs text-slate-500 font-semibold">
+                <div class="flex items-center space-x-2">
+                  <span class="text-emerald-500 font-bold">✓</span>
+                  <span>Sub-1ms Emergency Gate</span>
+                </div>
+                <div class="flex items-center space-x-2">
+                  <span class="text-blue-500 font-bold">✓</span>
+                  <span>Zero Double Bookings</span>
+                </div>
+                <div class="flex items-center space-x-2">
+                  <span class="text-indigo-500 font-bold">✓</span>
+                  <span>SHA-256 Audit Trail</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="lg:col-span-5 flex justify-center relative">
+              <div class="relative w-72 sm:w-80 lg:w-96">
+                <div class="absolute -top-4 -right-4 w-28 h-28 bg-sky-200 rounded-full -z-10"></div>
+                <div class="absolute -bottom-6 -left-6 w-36 h-36 bg-blue-100 rounded-full -z-10"></div>
+                <div class="absolute top-1/2 -right-6 text-3xl font-black text-sky-400 select-none">+</div>
+                <div class="absolute top-10 left-4 text-2xl font-black text-blue-300 select-none">+</div>
+                <div class="absolute bottom-16 -left-4 text-2xl font-black text-sky-300 select-none">+</div>
+
+                <div class="rounded-3xl overflow-hidden border-4 border-white shadow-2xl bg-white aspect-square">
+                  <img src="/static/img/doctor_hero.jpg" alt="Doctor Sarah - MAVIS Health Partner" class="w-full h-full object-cover object-top hover:scale-105 transition duration-500">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 5 Healthcare Service Cards (Exact match to reference) -->
+        <div class="space-y-6 w-full">
+          <div class="text-center max-w-2xl mx-auto space-y-2">
+            <h2 class="text-3xl sm:text-4xl font-black text-[#1e1b4b] font-['Outfit']">Our Healthcare Service</h2>
+            <p class="text-slate-600 text-sm">
+              Select any department below to immediately test autonomous voice AI triage.
+            </p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+            <!-- Ophthalmology -->
+            <div class="service-card flex items-center space-x-4 cursor-pointer" onclick="window.mavisApp.switchView('voice'); window.voiceClient.sendTurn('Severe blurred vision with eye pain and floaters in my left eye');">
+              <div class="service-icon-circle">
+                <svg class="w-7 h-7 text-[#0084ff]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                </svg>
+              </div>
+              <div>
+                <h3 class="text-lg font-bold text-white font-['Outfit']">Ophthalmology Department</h3>
+                <p class="text-xs text-blue-100 mt-0.5">Vision care, cataract, glaucoma, retinal health & optical checkups</p>
+              </div>
+            </div>
+
+            <!-- Cardiology -->
+            <div class="service-card flex items-center space-x-4 cursor-pointer" onclick="window.mavisApp.switchView('voice'); window.voiceClient.sendTurn('Mild palpitations and tightness in chest after walking');">
+              <div class="service-icon-circle">
+                <svg class="w-7 h-7 text-[#0084ff]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+                </svg>
+              </div>
+              <div>
+                <h3 class="text-lg font-bold text-white font-['Outfit']">Cardiology Department</h3>
+                <p class="text-xs text-blue-100 mt-0.5">Comprehensive cardiovascular care, ECG, hypertension & lipid profile</p>
+              </div>
+            </div>
+
+            <!-- Dermatology -->
+            <div class="service-card flex items-center space-x-4 cursor-pointer" onclick="window.mavisApp.switchView('voice'); window.voiceClient.sendTurn('Red itchy rash on forearm spreading for 3 days');">
+              <div class="service-icon-circle">
+                <svg class="w-7 h-7 text-[#0084ff]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/>
+                </svg>
+              </div>
+              <div>
+                <h3 class="text-lg font-bold text-white font-['Outfit']">Dermatology Department</h3>
+                <p class="text-xs text-blue-100 mt-0.5">Advanced skin treatment, allergies, eczema, acne & dermatosurgery</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto pt-2">
+            <!-- Orthopedics -->
+            <div class="service-card flex items-center space-x-4 cursor-pointer" onclick="window.mavisApp.switchView('voice'); window.voiceClient.sendTurn('Severe knee joint swelling and difficulty walking');">
+              <div class="service-icon-circle">
+                <svg class="w-7 h-7 text-[#0084ff]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                </svg>
+              </div>
+              <div>
+                <h3 class="text-lg font-bold text-white font-['Outfit']">Orthopedics Department</h3>
+                <p class="text-xs text-blue-100 mt-0.5">Joint reconstruction, sports injuries, fractures & trauma care</p>
+              </div>
+            </div>
+
+            <!-- ENT -->
+            <div class="service-card flex items-center space-x-4 cursor-pointer" onclick="window.mavisApp.switchView('voice'); window.voiceClient.sendTurn('Severe ear pain with throbbing sensation and sinus blockage for 4 days');">
+              <div class="service-icon-circle">
+                <svg class="w-7 h-7 text-[#0084ff]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/>
+                </svg>
+              </div>
+              <div>
+                <h3 class="text-lg font-bold text-white font-['Outfit']">ENT Department</h3>
+                <p class="text-xs text-blue-100 mt-0.5">Ear ache, sinus blockage, hearing evaluation & throat care</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ========================================================================= -->
+      <!-- VIEW 1: AUTONOMOUS VOICE AI INTAKE TERMINAL -->
+      <!-- ========================================================================= -->
+      <section id="view-voice" class="hidden space-y-6 w-full">
+        
+        <div class="glass-panel p-6 border-blue-200 relative overflow-hidden bg-white w-full">
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div>
+              <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-blue-50 text-[#0084ff] border border-blue-200 text-xs font-bold font-mono mb-2">
+                <span class="w-2 h-2 rounded-full bg-[#0084ff] animate-ping"></span>
+                <span>LAYER 1 (LiveKit / Whisper / Piper) & LAYER 2 (Red-Flag Safety Gate)</span>
+              </div>
+              <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-[#1e1b4b] font-['Outfit']">
+                Autonomous Voice AI Intake Terminal
+              </h2>
+              <p class="text-slate-600 text-xs sm:text-sm mt-1 max-w-3xl">
+                Evaluates voice activity via Silero VAD, enforces synchronous zero-tolerance red-flag safety, extracts clinical symptoms, and deterministically allocates FCFS doctor slots with Piper TTS voice feedback.
+              </p>
+            </div>
+            <div class="flex flex-wrap items-center gap-2">
+              <button id="btn-start-call" onclick="window.voiceClient.startCall()" class="px-6 py-3 rounded-full font-bold text-sm btn-primary flex items-center space-x-2 shadow-lg">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+                <span>Connect Live Voice Call</span>
+              </button>
+              <button id="btn-end-call" onclick="window.voiceClient.endCall()" class="hidden px-6 py-3 rounded-full font-bold text-sm bg-rose-600 hover:bg-rose-700 text-white flex items-center space-x-2 transition shadow-lg">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 8l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2M5 3a2 2 0 00-2 2v1c0 8.284 6.716 15 15 15h1a2 2 0 002-2v-3.28a1 1 0 00-.684-.948l-4.493-1.498a1 1 0 00-1.21.502l-1.13 2.257a11.042 11.042 0 01-5.516-5.517l2.257-1.128a1 1 0 00.502-1.21L9.228 3.684A1 1 0 008.28 3H5z"/></svg>
+                <span>Disconnect</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Voice Session Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 w-full">
+          
+          <!-- Telephony & Waveform State -->
+          <div class="glass-panel p-5 space-y-4 flex flex-col justify-between bg-white border-slate-200">
+            <div>
+              <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+                <h3 class="font-bold text-sm text-[#1e1b4b] uppercase tracking-wider">Telephony State</h3>
+                <div id="voice-status" class="text-xs font-mono font-semibold text-[#0084ff]">Ready to initiate</div>
+              </div>
+
+              <div id="voice-waveform" class="hidden my-4 p-4 rounded-2xl bg-blue-50/70 border border-blue-200 text-center">
+                <div class="text-[11px] font-mono text-[#0084ff] font-bold mb-2 flex items-center justify-center space-x-2">
+                  <span class="w-2 h-2 rounded-full bg-[#0084ff] animate-pulse"></span>
+                  <span>SILERO VAD & EDGE AUDIO PIPELINE (16kHz PCM)</span>
+                </div>
+                <div class="h-16 flex items-center justify-center space-x-1.5">
+                  <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
+                  <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
+                  <div class="wave-bar"></div><div class="wave-bar"></div>
+                </div>
+                <div id="agent-speaking-indicator" class="hidden text-xs text-[#0084ff] font-bold mt-2 animate-pulse">
+                  🔊 Agent Speaking (Piper Neural TTS Synthesis)...
+                </div>
+              </div>
+
+              <div class="my-4">
+                <button onclick="window.voiceClient.triggerBargeIn()" class="w-full py-2.5 px-3 rounded-xl text-xs font-bold bg-amber-50 hover:bg-amber-100 text-amber-800 border border-amber-200 flex items-center justify-center space-x-2 transition">
+                  <span>⚡</span><span>Trigger Barge-in (Interrupt Agent Speech)</span>
+                </button>
+                <p class="text-[11px] text-slate-500 mt-1 text-center">Silero VAD detects user voice activity & immediately pauses agent TTS.</p>
+              </div>
+
+              <div class="bg-blue-50/50 p-3.5 rounded-xl border border-blue-100 text-xs space-y-2">
+                <div class="font-bold text-[#1e1b4b] uppercase tracking-wider text-[10px]">Caller Context</div>
+                <div class="grid grid-cols-2 gap-2">
+                  <div>
+                    <label class="text-[10px] text-slate-600 font-semibold">Patient Name</label>
+                    <input id="caller-name-input" type="text" value="Rohan Sharma" class="w-full bg-white border border-slate-300 focus:border-[#0084ff] rounded-lg px-2.5 py-1.5 text-xs text-slate-800 font-medium" onchange="window.voiceClient.patientName = this.value">
+                  </div>
+                  <div>
+                    <label class="text-[10px] text-slate-600 font-semibold">Phone Number</label>
+                    <input id="caller-phone-input" type="text" value="+91-9876543210" class="w-full bg-white border border-slate-300 focus:border-[#0084ff] rounded-lg px-2.5 py-1.5 text-xs text-slate-800 font-medium" onchange="window.voiceClient.callerPhone = this.value">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Booking Confirmed Token Card -->
+            <div id="booking-confirmed-card" class="hidden p-4 rounded-2xl bg-emerald-50 border border-emerald-200 space-y-3">
+              <div class="flex items-center space-x-2 text-emerald-800 font-bold text-sm">
+                <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                <span>Appointment Confirmed!</span>
+              </div>
+              <div class="bg-white p-3 rounded-xl border border-emerald-100 space-y-1 text-xs">
+                <div>Token: <strong id="card-token-id" class="text-[#0084ff] font-mono text-sm">--</strong></div>
+                <div>Queue: <strong id="card-queue-pos" class="text-slate-800 font-bold">#--</strong></div>
+                <div>Doctor: <span id="card-doctor" class="text-slate-600 font-medium">--</span></div>
+                <div>Slot: <span id="card-slot" class="text-slate-600 font-medium">--</span></div>
+              </div>
+              <button onclick="window.loadTokenInTracker(document.getElementById('card-token-id').innerText)" class="w-full py-2.5 rounded-full text-xs font-bold btn-primary transition shadow-md">
+                Track in Patient Portal →
+              </button>
+            </div>
+          </div>
+
+          <!-- Center: Conversation Stream -->
+          <div class="lg:col-span-2 glass-panel p-5 flex flex-col justify-between bg-white border-slate-200 min-h-[480px]">
+            <div>
+              <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+                <div class="flex items-center space-x-2">
+                  <h3 class="font-bold text-sm text-[#1e1b4b] uppercase tracking-wider">Live Utterance Transcript</h3>
+                  <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-blue-100 text-[#0084ff]">Whisper STT</span>
+                </div>
+                <button onclick="const t=document.getElementById('voice-transcript')||document.getElementById('transcript-container'); if(t) t.innerHTML='';" class="text-xs text-slate-400 hover:text-slate-600">Clear</button>
+              </div>
+
+              <!-- Emergency Red-Flag Banner -->
+              <div id="emergency-banner" class="hidden my-3 p-4 rounded-2xl bg-rose-50 border border-rose-300 text-rose-800 text-xs space-y-1">
+                <div class="font-extrabold flex items-center space-x-2 text-sm text-rose-700">
+                  <span>🚨 EMERGENCY RED-FLAG PROTOCOL ACTIVATED</span>
+                </div>
+                <p id="emergency-message" class="text-xs font-medium"></p>
+                <div class="font-bold text-rose-900 pt-1">ACTION: Please proceed to the nearest emergency room immediately. Call 112 / 108.</div>
+              </div>
+
+              <!-- Transcript Container -->
+              <div id="voice-transcript" class="my-4 space-y-3 max-h-[380px] overflow-y-auto pr-2">
+                <div id="voice-placeholder-msg" class="text-center text-xs text-slate-400 py-12">
+                  Click "Connect Live Voice Call" or select a department to initiate audio intake.
+                </div>
+              </div>
+            </div>
+
+            <!-- Quick Utterance Chips & Input Bar -->
+            <div class="pt-3 border-t border-slate-100 space-y-2">
+              <div class="flex flex-wrap gap-1.5 text-xs">
+                <button onclick="window.voiceClient.sendTurn('Severe crushing chest pain radiating to my left arm and jaw')" class="px-2.5 py-1 rounded-full bg-rose-50 text-rose-700 border border-rose-200 text-[11px] font-semibold hover:bg-rose-100">
+                  🚨 Test Emergency (Chest Pain)
+                </button>
+                <button onclick="window.voiceClient.sendTurn('I have had blurred vision with red eye and halos around lights for 2 days')" class="px-2.5 py-1 rounded-full bg-blue-50 text-[#0084ff] border border-blue-200 text-[11px] font-semibold hover:bg-blue-100">
+                  👁️ Ophthalmology (Blurred Vision)
+                </button>
+                <button onclick="window.voiceClient.sendTurn('Severe ear pain with throbbing sensation and sinus blockage for 4 days')" class="px-2.5 py-1 rounded-full bg-blue-50 text-[#0084ff] border border-blue-200 text-[11px] font-semibold hover:bg-blue-100">
+                  👂 ENT (Ear Pain & Sinus)
+                </button>
+                <button onclick="window.voiceClient.sendTurn('Red itchy rash on forearm spreading for 3 days')" class="px-2.5 py-1 rounded-full bg-blue-50 text-[#0084ff] border border-blue-200 text-[11px] font-semibold hover:bg-blue-100">
+                  🧴 Dermatology (Skin Rash)
+                </button>
+              </div>
+
+              <!-- Spoken Text Input Bar -->
+              <form onsubmit="event.preventDefault(); const inp=document.getElementById('voice-input-text'); if(inp.value.trim()){ window.voiceClient.sendTurn(inp.value.trim()); inp.value=''; }" class="flex space-x-2">
+                <input id="voice-input-text" type="text" placeholder="Speak or type caller response here..." class="flex-1 bg-white border border-slate-300 focus:border-[#0084ff] focus:ring-2 focus:ring-blue-100 rounded-full px-5 py-3 text-sm text-slate-800 placeholder-slate-400 focus:outline-none transition">
+                <button type="submit" class="px-6 py-3 rounded-full font-bold text-sm btn-primary flex items-center space-x-1.5 transition shadow-md">
+                  <span>Send Utterance</span>
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ========================================================================= -->
+      <!-- VIEW 2: PATIENT PORTAL (PURE PUBLIC TOKEN TRACKER - NO LOGIN REQUIRED) -->
+      <!-- ========================================================================= -->
+      <section id="view-patient" class="hidden space-y-6 w-full">
+        
+        <div class="glass-panel p-8 text-center max-w-4xl mx-auto bg-white border-blue-200 shadow-lg">
+          <div class="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full bg-blue-50 text-[#0084ff] border border-blue-200 text-xs font-mono font-bold mb-3">
+            <span>PUBLIC APPOINTMENT TRACKER • ZERO LOGIN REQUIRED</span>
+          </div>
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-[#1e1b4b] font-['Outfit']">Track Your Hospital Appointment</h2>
+          <p class="text-slate-600 text-xs sm:text-sm mt-1 max-w-md mx-auto">
+            Enter your unique Token ID provided during the AI voice intake call to view real-time department queue position and doctor consultation status.
+          </p>
+
+          <!-- Search Bar -->
+          <div class="mt-6 flex flex-col sm:flex-row items-center justify-center gap-2 max-w-lg mx-auto">
+            <input id="patient-token-input" type="text" placeholder="e.g., CARD-20261020-001" class="w-full bg-white border border-slate-300 focus:border-[#0084ff] focus:ring-2 focus:ring-blue-100 rounded-full px-5 py-3 text-center sm:text-left text-sm text-slate-800 uppercase font-mono font-bold tracking-wider placeholder-slate-400 focus:outline-none">
+            <button onclick="window.patientPortal.trackToken()" class="w-full sm:w-auto px-7 py-3 rounded-full font-bold text-sm btn-primary flex-shrink-0 transition shadow-md">
+              Check Status →
+            </button>
+          </div>
+
+          <div class="mt-4 text-xs text-slate-500 font-medium">
+            Try sample tokens: <button onclick="window.loadTokenInTracker('CARD-20261020-001')" class="text-[#0084ff] font-bold underline font-mono">CARD-20261020-001</button>, <button onclick="window.loadTokenInTracker('NEUR-20261020-001')" class="text-[#0084ff] font-bold underline font-mono">NEUR-20261020-001</button>
+          </div>
+        </div>
+
+        <!-- Error Box -->
+        <div id="token-error-container" class="hidden max-w-2xl mx-auto p-4 rounded-2xl bg-rose-50 border border-rose-200 text-rose-700 text-sm font-semibold"></div>
+
+        <!-- Live Result Display -->
+        <div id="token-result-container" class="hidden max-w-4xl mx-auto glass-panel p-6 sm:p-8 border-blue-200 bg-white space-y-6 shadow-xl">
+          <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between pb-4 border-b border-slate-100 gap-3">
+            <div>
+              <span class="text-xs uppercase font-bold tracking-wider text-slate-500">Tracking Token</span>
+              <div id="pt-token-id" class="text-3xl font-black font-mono text-[#0084ff]">CARD-20261020-001</div>
+              <div class="text-xs text-slate-600 mt-0.5">Patient: <strong id="pt-patient-name" class="text-[#1e1b4b]">Aarav Mehta</strong></div>
+            </div>
+            <div class="flex flex-col sm:items-end">
+              <span class="text-xs text-slate-500 mb-1 font-semibold">Appointment State</span>
+              <span id="pt-status-badge">SCHEDULED</span>
+            </div>
+          </div>
+
+          <!-- Live Queue Counter Highlight -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
+            <div class="p-4 rounded-2xl bg-blue-50/70 border border-blue-200">
+              <span class="text-[11px] uppercase font-bold tracking-wider text-[#0084ff] block mb-1">Live Queue Position</span>
+              <div id="pt-queue-pos" class="text-3xl font-extrabold text-[#0084ff] font-mono">#1</div>
+              <span id="pt-patients-ahead" class="text-xs text-slate-600 font-semibold">0 patients ahead</span>
+            </div>
+
+            <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200">
+              <span class="text-[11px] uppercase font-bold tracking-wider text-slate-500 block mb-1">Assigned Department</span>
+              <div id="pt-department" class="text-lg font-bold text-[#1e1b4b]">Cardiology</div>
+              <span id="pt-room" class="text-xs text-slate-500 font-mono">OPD-101</span>
+            </div>
+
+            <div class="p-4 rounded-2xl bg-emerald-50/70 border border-emerald-200">
+              <span class="text-[11px] uppercase font-bold tracking-wider text-emerald-700 block mb-1">Allocated Slot Time</span>
+              <div id="pt-slot-time" class="text-lg font-bold text-emerald-800">10:00 AM</div>
+              <span class="text-xs text-emerald-600 font-semibold">Deterministic FCFS</span>
+            </div>
+          </div>
+
+          <!-- Doctor Details & Post-Visit Status -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
+            <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 text-sm space-y-1">
+              <div class="text-xs uppercase font-bold text-slate-500 mb-1">Attending Physician</div>
+              <div id="pt-doctor" class="font-bold text-[#1e1b4b]">Dr. B</div>
+              <div id="pt-specialization" class="text-xs text-slate-600">Interventional Cardiology</div>
+            </div>
+
+            <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 text-sm space-y-1">
+              <div class="text-xs uppercase font-bold text-slate-500 mb-1">F5 Post-Visit Follow-Up Status</div>
+              <div id="pt-followup-status" class="text-xs font-mono font-bold text-emerald-700">PENDING</div>
+              <p class="text-[11px] text-slate-500">Autonomous voice AI checks in post-consultation to verify patient recovery.</p>
+            </div>
+          </div>
+
+          <div class="text-center pt-2">
+            <button onclick="window.patientPortal.trackToken()" class="px-5 py-2.5 rounded-full text-xs font-bold btn-secondary transition">
+              🔄 Refresh Queue Position (Auto-polls every 10s)
+            </button>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ========================================================================= -->
+      <!-- VIEW 3: DOCTOR PORTAL (ROLE: DOCTOR, JWT AUTH) -->
+      <!-- ========================================================================= -->
+      <section id="view-doctor" class="hidden space-y-6 w-full">
+        
+        <div class="glass-panel p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between border-blue-200 bg-white gap-4 w-full">
+          <div>
+            <div class="flex items-center space-x-2">
+              <h2 id="doc-name-display" class="text-2xl font-extrabold text-[#1e1b4b] font-['Outfit']">Doctor Intake Dashboard</h2>
+              <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-blue-100 text-[#0084ff] border border-blue-200">ROLE: DOCTOR</span>
+            </div>
+            <p id="doc-dept-display" class="text-xs text-slate-500 font-semibold mt-0.5">Cardiology • Room OPD-101</p>
+          </div>
+          <button onclick="window.doctorPortal.loadDashboard()" class="px-4 py-2 rounded-full text-xs font-bold btn-secondary transition">
+            🔄 Refresh Queue
+          </button>
+        </div>
+
+        <!-- Active Appointments Queue -->
+        <div class="glass-panel p-6 space-y-4 bg-white border-slate-200 w-full">
+          <div class="flex items-center justify-between">
+            <h3 class="font-bold text-sm text-[#1e1b4b] uppercase tracking-wider">Active Patient Queue (Chronological)</h3>
+            <span class="text-xs text-slate-500 font-semibold">First-Come, First-Served</span>
+          </div>
+
+          <div class="overflow-x-auto w-full">
+            <table class="w-full text-left">
+              <thead>
+                <tr class="border-b border-slate-200 bg-blue-50/60 text-[11px] uppercase tracking-wider text-slate-700 font-bold">
+                  <th class="py-3 px-4">Token</th>
+                  <th class="py-3 px-4">Slot</th>
+                  <th class="py-3 px-4">Patient</th>
+                  <th class="py-3 px-4">Chief Complaint</th>
+                  <th class="py-3 px-4">Triage Urgency</th>
+                  <th class="py-3 px-4">Status</th>
+                  <th class="py-3 px-4 text-right">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="doctor-queue-tbody" class="divide-y divide-slate-100 text-xs">
+                <tr><td colspan="7" class="py-8 text-center text-slate-400">Loading appointments queue...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- F5 Post-Visit Follow-Up Status Table -->
+        <div class="glass-panel p-6 space-y-4 bg-white border-slate-200 w-full">
+          <div class="flex items-center justify-between">
+            <div>
+              <h3 class="font-bold text-sm text-[#1e1b4b] uppercase tracking-wider">F5 Post-Visit Voice Follow-Up Registry</h3>
+              <p class="text-xs text-slate-500">Autonomous voice calls conducted post-consultation to verify recovery</p>
+            </div>
+          </div>
+
+          <div class="overflow-x-auto w-full">
+            <table class="w-full text-left">
+              <thead>
+                <tr class="border-b border-slate-200 bg-blue-50/60 text-[11px] uppercase tracking-wider text-slate-700 font-bold">
+                  <th class="py-3 px-4">Token</th>
+                  <th class="py-3 px-4">Patient</th>
+                  <th class="py-3 px-4">Call Outcome</th>
+                  <th class="py-3 px-4">Severity Shift</th>
+                  <th class="py-3 px-4">Patient Statement Summary</th>
+                  <th class="py-3 px-4 text-right">Doctor Action</th>
+                </tr>
+              </thead>
+              <tbody id="doctor-followups-tbody" class="divide-y divide-slate-100 text-xs">
+                <tr><td colspan="6" class="py-8 text-center text-slate-400">Loading post-visit follow-up telemetry...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ========================================================================= -->
+      <!-- VIEW 4: ADMIN CONSOLE (ROLE: ADMIN, JWT AUTH) -->
+      <!-- ========================================================================= -->
+      <section id="view-admin" class="hidden space-y-6 w-full">
+        
+        <div class="glass-panel p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between border-blue-200 bg-white gap-4 w-full">
+          <div>
+            <div class="flex items-center space-x-2">
+              <h2 class="text-2xl font-extrabold text-[#1e1b4b] font-['Outfit']">Hospital Operations & Audit Console</h2>
+              <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-indigo-100 text-indigo-700 border border-indigo-200">ROLE: ADMIN</span>
+            </div>
+            <p class="text-xs text-slate-500 font-semibold mt-0.5">Departmental Rostering • Telemetry • SHA-256 Tamper-Evident Ledger</p>
+          </div>
+          <div class="flex space-x-2">
+            <button onclick="document.getElementById('create-doctor-modal').classList.remove('hidden')" class="px-4 py-2 rounded-full text-xs font-bold btn-primary transition">
+              + Authorize Physician
+            </button>
+            <button onclick="window.adminPortal.loadDashboard()" class="px-4 py-2 rounded-full text-xs font-bold btn-secondary transition">
+              🔄 Refresh Telemetry
+            </button>
+          </div>
+        </div>
+
+        <!-- System Telemetry Cards -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 w-full">
+          <div class="glass-panel p-4 bg-white border-slate-200">
+            <span class="text-[11px] font-bold text-slate-500 uppercase">Total Appointments</span>
+            <div id="adm-stat-appointments" class="text-2xl font-black text-[#1e1b4b] mt-1 font-mono">--</div>
+            <span class="text-[10px] text-slate-400">Deterministic slot bookings</span>
+          </div>
+
+          <div class="glass-panel p-4 bg-white border-slate-200">
+            <span class="text-[11px] font-bold text-slate-500 uppercase">Emergency Preemptions</span>
+            <div id="adm-stat-emergencies" class="text-2xl font-black text-rose-600 mt-1 font-mono">--</div>
+            <span class="text-[10px] text-rose-500 font-semibold">Sub-1ms Gate Triggered</span>
+          </div>
+
+          <div class="glass-panel p-4 bg-white border-slate-200">
+            <span class="text-[11px] font-bold text-slate-500 uppercase">Rostered Physicians</span>
+            <div id="adm-stat-doctors" class="text-2xl font-black text-[#0084ff] mt-1 font-mono">--</div>
+            <span class="text-[10px] text-slate-400">Active OPD duty</span>
+          </div>
+
+          <div class="glass-panel p-4 bg-white border-slate-200">
+            <span class="text-[11px] font-bold text-slate-500 uppercase">SHA-256 Ledger Entries</span>
+            <div id="adm-stat-audit" class="text-2xl font-black text-emerald-700 mt-1 font-mono">--</div>
+            <span class="text-[10px] text-emerald-600 font-semibold">Cryptographically Verified</span>
+          </div>
+        </div>
+
+        <!-- Department Doctors Roster -->
+        <div class="glass-panel p-6 space-y-4 bg-white border-slate-200 w-full">
+          <div class="flex items-center justify-between">
+            <h3 class="font-bold text-sm text-[#1e1b4b] uppercase tracking-wider">Hospital Department Roster</h3>
+            <button onclick="document.getElementById('create-doctor-modal').classList.remove('hidden')" class="px-3 py-1.5 rounded-full bg-blue-50 hover:bg-blue-100 text-[#0084ff] text-xs font-bold border border-blue-200 transition shadow-sm">
+              + Authorize Physician
+            </button>
+          </div>
+          <div class="overflow-x-auto w-full">
+            <table class="w-full text-left">
+              <thead>
+                <tr class="border-b border-slate-200 bg-blue-50/60 text-[11px] uppercase tracking-wider text-slate-700 font-bold">
+                  <th class="py-3 px-4">Physician Name</th>
+                  <th class="py-3 px-4">Department</th>
+                  <th class="py-3 px-4">Specialization</th>
+                  <th class="py-3 px-4">Room</th>
+                  <th class="py-3 px-4">Available Slots</th>
+                  <th class="py-3 px-4">Active Status</th>
+                  <th class="py-3 px-4 text-right">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="admin-doctors-tbody" class="divide-y divide-slate-100 text-xs">
+                <tr><td colspan="7" class="py-8 text-center text-slate-400">Loading physician roster...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- SHA-256 Cryptographic Audit Ledger -->
+        <div class="glass-panel p-6 space-y-4 bg-white border-slate-200 w-full">
+          <div class="flex items-center justify-between">
+            <div>
+              <h3 class="font-bold text-sm text-[#1e1b4b] uppercase tracking-wider">F4 SHA-256 Tamper-Evident Audit Ledger</h3>
+              <p class="text-xs text-slate-500">Every clinical transition, emergency trigger & slot reservation is cryptographically linked</p>
+            </div>
+            <span class="px-2.5 py-1 rounded-full text-[10px] font-mono font-bold bg-emerald-100 text-emerald-800 border border-emerald-300">
+              HASH CHAIN INTACT
+            </span>
+          </div>
+
+          <div class="overflow-x-auto w-full">
+            <table class="w-full text-left font-mono text-[11px]">
+              <thead>
+                <tr class="border-b border-slate-200 bg-blue-50/60 text-slate-700 font-bold uppercase">
+                  <th class="py-3 px-3">Seq #</th>
+                  <th class="py-3 px-3">Timestamp</th>
+                  <th class="py-3 px-3">Event Type</th>
+                  <th class="py-3 px-3">Entity ID</th>
+                  <th class="py-3 px-3">Payload SHA-256 Hash</th>
+                  <th class="py-3 px-3">Previous Block Hash</th>
+                </tr>
+              </thead>
+              <tbody id="admin-audit-tbody" class="divide-y divide-slate-100 text-slate-600">
+                <tr><td colspan="6" class="py-8 text-center text-slate-400">Loading cryptographic audit trail...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </section>
+
+    </main>
+
+    <!-- Main Application Footer (Spans Full Width) -->
+    <footer class="border-t border-slate-200 bg-white py-6 text-center text-xs text-slate-500 w-full mt-12">
+      <div class="w-full px-6 lg:px-12 text-center">
+        <strong class="text-[#0084ff]">MAVIS</strong> • Multi-Agent Voice Intake System
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- MODALS (DOCTOR BRIEF & AUTHORIZE PHYSICIAN ONLY) -->
+  <!-- ========================================================================= -->
+  
+  <!-- AI Clinical Handoff Brief Modal (F3) -->
+  <div id="brief-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-slate-900/50 backdrop-blur-sm p-4">
+    <div class="glass-panel p-6 max-w-2xl w-full border-blue-200 bg-white relative max-h-[90vh] overflow-y-auto shadow-2xl">
+      <button onclick="document.getElementById('brief-modal').classList.add('hidden')" class="absolute top-4 right-4 text-slate-400 hover:text-slate-800 font-bold">✕</button>
+      <div class="flex items-center space-x-2 text-[#0084ff] text-xs font-mono font-bold mb-1">
+        <span>F3 STRUCTURED CLINICAL HANDOFF</span>
+      </div>
+      <h3 id="modal-brief-title" class="text-xl font-bold text-[#1e1b4b] font-['Outfit'] mb-3">Clinical Handoff Brief</h3>
+      <div id="modal-brief-content"></div>
+    </div>
+  </div>
+
+  <!-- Add Doctor Modal -->
+  <div id="create-doctor-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-slate-900/50 backdrop-blur-sm p-4">
+    <div class="glass-panel p-6 max-w-md w-full border-blue-200 bg-white relative shadow-2xl">
+      <button onclick="document.getElementById('create-doctor-modal').classList.add('hidden')" class="absolute top-4 right-4 text-slate-400 hover:text-slate-800 font-bold">✕</button>
+      <h3 class="text-xl font-bold text-[#1e1b4b] font-['Outfit'] mb-1">Authorize Physician Profile</h3>
+      <p class="text-xs text-slate-500 mb-4">Adds physician to department roster and automatically generates shift slots.</p>
+
+      <form onsubmit="event.preventDefault(); window.adminPortal.createDoctor();" class="space-y-3">
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">Full Name</label>
+          <input id="new-doc-name" type="text" placeholder="Dr. Suresh Reddy" required class="w-full bg-white border border-slate-300 rounded-xl px-3 py-2 text-sm text-slate-800">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">Email</label>
+          <input id="new-doc-email" type="email" placeholder="suresh.reddy@mavis.hospital" required class="w-full bg-white border border-slate-300 rounded-xl px-3 py-2 text-sm text-slate-800">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">Department</label>
+          <select id="new-doc-dept" class="w-full bg-white border border-slate-300 rounded-xl px-3 py-2 text-sm text-slate-800">
+            <option value="Ophthalmology">Ophthalmology</option>
+            <option value="Cardiology">Cardiology</option>
+            <option value="Dermatology">Dermatology</option>
+            <option value="Orthopedics">Orthopedics</option>
+            <option value="ENT">ENT</option>
+            <option value="General Medicine">General Medicine</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">Specialization</label>
+          <input id="new-doc-spec" type="text" placeholder="Consultant Cardiologist" class="w-full bg-white border border-slate-300 rounded-xl px-3 py-2 text-sm text-slate-800">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">Room Number</label>
+          <input id="new-doc-room" type="text" value="OPD-108" class="w-full bg-white border border-slate-300 rounded-xl px-3 py-2 text-sm text-slate-800">
+        </div>
+        <button type="submit" class="w-full py-3 rounded-full font-bold text-sm btn-primary transition mt-2 shadow-md">
+          Authorize & Generate Shift Slots →
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Edit Doctor & Shift Slots Modal -->
+  <div id="edit-doctor-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-slate-900/50 backdrop-blur-sm p-4">
+    <div class="glass-panel p-6 max-w-lg w-full border-blue-200 bg-white relative shadow-2xl rounded-2xl max-h-[90vh] overflow-y-auto">
+      <button onclick="document.getElementById('edit-doctor-modal').classList.add('hidden')" class="absolute top-4 right-4 text-slate-400 hover:text-slate-800 font-bold text-lg">✕</button>
+      <div class="flex items-center space-x-2 text-[#0084ff] text-xs font-mono font-bold mb-1">
+        <span>PHYSICIAN ROSTER MANAGEMENT</span>
+      </div>
+      <h3 class="text-xl font-bold text-[#1e1b4b] font-['Outfit'] mb-1">Edit Physician & Shift Slots</h3>
+      <p class="text-xs text-slate-500 mb-4">Update room number, clinical department, active status, or adjust scheduled slot capacity.</p>
+
+      <form onsubmit="event.preventDefault(); window.adminPortal.saveDoctorEdit();" class="space-y-4">
+        <input id="edit-doc-id" type="hidden">
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">Physician Name</label>
+            <input id="edit-doc-name" type="text" required class="w-full bg-white border border-slate-300 rounded-xl px-3 py-2 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-400">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">Department</label>
+            <select id="edit-doc-dept" class="w-full bg-white border border-slate-300 rounded-xl px-3 py-2 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-400">
+              <option value="Ophthalmology">Ophthalmology</option>
+              <option value="Cardiology">Cardiology</option>
+              <option value="Dermatology">Dermatology</option>
+              <option value="Orthopedics">Orthopedics</option>
+              <option value="ENT">ENT</option>
+              <option value="General Medicine">General Medicine</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">Room Number</label>
+            <input id="edit-doc-room" type="text" required placeholder="OPD-101" class="w-full bg-white border border-slate-300 rounded-xl px-3 py-2 text-sm font-mono font-bold text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-400">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">Active OPD Duty</label>
+            <select id="edit-doc-active" class="w-full bg-white border border-slate-300 rounded-xl px-3 py-2 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-400">
+              <option value="true">Active (On Duty)</option>
+              <option value="false">Inactive (Off Duty)</option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">Specialization / Clinical Focus</label>
+          <input id="edit-doc-spec" type="text" required class="w-full bg-white border border-slate-300 rounded-xl px-3 py-2 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-400">
+        </div>
+
+        <!-- Shift Slot Management Card -->
+        <div class="p-3 bg-blue-50/50 rounded-xl border border-blue-100 space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-[#1e1b4b] uppercase tracking-wider">Shift Slots & Capacity</span>
+            <span id="edit-doc-slot-summary" class="text-[11px] font-mono font-semibold text-[#0084ff]">--</span>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 mb-0.5">Available (Unbooked) Slots</label>
+              <input id="edit-doc-slots" type="number" min="0" max="100" class="w-full bg-white border border-slate-300 rounded-xl px-3 py-2 text-sm font-mono font-bold text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-400">
+              <p class="text-[10px] text-slate-500 mt-1">Target available slots for patients.</p>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 mb-0.5">Quick Append Extra Slots</label>
+              <input id="edit-doc-add-slots" type="number" min="0" max="50" value="0" class="w-full bg-white border border-slate-300 rounded-xl px-3 py-2 text-sm font-mono font-bold text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-400">
+              <p class="text-[10px] text-slate-500 mt-1">Generate +N slots immediately.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex items-center justify-end space-x-2 pt-2">
+          <button type="button" onclick="document.getElementById('edit-doctor-modal').classList.add('hidden')" class="px-4 py-2.5 rounded-full font-bold text-xs text-slate-600 hover:bg-slate-100 border border-slate-300 transition">
+            Cancel
+          </button>
+          <button id="btn-save-edit-doctor" type="submit" onclick="event.preventDefault(); window.adminPortal.saveDoctorEdit();" class="px-6 py-2.5 rounded-full font-bold text-xs btn-primary transition shadow-md">
+            Save Roster Updates →
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- App Scripts -->
+  <script src="/static/js/voice_client.js"></script>
+  <script src="/static/js/patient_portal.js"></script>
+  <script src="/static/js/doctor_portal.js"></script>
+  <script src="/static/js/admin_portal.js"></script>
+  <script src="/static/js/app.js"></script>
+</body>
+</html>

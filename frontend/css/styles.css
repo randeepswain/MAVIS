@@ -1,0 +1,259 @@
+:root {
+  --bg-primary: #f0f7ff;
+  --bg-secondary: #ffffff;
+  --bg-card: #ffffff;
+  --bg-card-hover: #f8fafc;
+  --border-color: #e2e8f0;
+  --border-focus: #0084ff;
+  --text-main: #1e1b4b;
+  --text-body: #475569;
+  --text-muted: #64748b;
+  
+  /* Primary Medical Blue Palette */
+  --accent-blue: #0084ff;
+  --accent-blue-hover: #0070d6;
+  --accent-blue-light: #e0f2fe;
+  --accent-cyan: #0284c7;
+  --accent-navy: #1e1b4b;
+  --accent-emerald: #059669;
+  --accent-amber: #d97706;
+  --accent-rose: #e11d48;
+  
+  --shadow-card: 0 10px 25px -5px rgba(2, 132, 199, 0.07), 0 8px 10px -6px rgba(0, 0, 0, 0.03);
+  --shadow-blue-btn: 0 8px 20px -4px rgba(0, 132, 255, 0.4);
+  --shadow-service-card: 0 12px 28px -6px rgba(0, 132, 255, 0.35);
+
+  --font-heading: 'Outfit', sans-serif;
+  --font-body: 'Inter', sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100vw;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-primary);
+  color: var(--text-body);
+  font-family: var(--font-body);
+  min-height: 100vh;
+  line-height: 1.5;
+  background-image: 
+    radial-gradient(circle at 10% 10%, rgba(0, 132, 255, 0.05) 0%, transparent 45%),
+    radial-gradient(circle at 90% 90%, rgba(2, 132, 199, 0.05) 0%, transparent 45%),
+    linear-gradient(#f0f7ff, #f8fafc);
+  overflow-x: hidden;
+}
+
+#view-login,
+#app-container,
+.app-wrapper,
+main {
+  width: 100vw;
+  max-width: 100%;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+/* Strict Flexbox Navbar Edge Alignment: Logo at extreme left, Nav + Logout at extreme right, nothing centered */
+.navbar-wrapper {
+  width: 100%;
+  max-width: 100%;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+}
+
+.navbar-logo-left {
+  display: flex !important;
+  align-items: center !important;
+  flex-shrink: 0 !important;
+  margin-right: auto !important;
+}
+
+.navbar-group-right {
+  display: flex !important;
+  align-items: center !important;
+  flex-shrink: 0 !important;
+  margin-left: auto !important;
+}
+
+/* Glass & Medical Cards */
+.glass-panel {
+  background: #ffffff;
+  border: 1px solid var(--border-color);
+  border-radius: 1.25rem;
+  box-shadow: var(--shadow-card);
+  transition: all 0.25s ease;
+}
+
+.glass-nav {
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid #e2e8f0;
+  box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.03);
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  color: var(--text-main);
+  letter-spacing: -0.02em;
+}
+
+.gradient-text {
+  color: var(--accent-blue);
+}
+
+.gradient-emergency {
+  color: var(--accent-rose);
+}
+
+/* Primary Button (Matching "BOOK AN APPOINTMENT" pill from reference image) */
+.btn-primary {
+  background: var(--accent-blue);
+  color: #ffffff;
+  border: none;
+  border-radius: 9999px;
+  box-shadow: var(--shadow-blue-btn);
+  font-weight: 700;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-primary:hover {
+  background: var(--accent-blue-hover);
+  box-shadow: 0 10px 25px -3px rgba(0, 132, 255, 0.55);
+  transform: translateY(-2px);
+}
+
+.btn-emergency {
+  background: #e11d48;
+  color: #ffffff;
+  border-radius: 9999px;
+  box-shadow: 0 4px 15px rgba(225, 29, 72, 0.35);
+  font-weight: 700;
+  animation: pulse-emergency 2s infinite;
+}
+
+.btn-secondary {
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  color: #334155;
+  border-radius: 9999px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.btn-secondary:hover {
+  background: #f1f5f9;
+  border-color: #94a3b8;
+  color: #0f172a;
+}
+
+/* Electric Blue Service Cards (Exact match to reference image) */
+.service-card {
+  background: linear-gradient(135deg, #0084ff 0%, #0066ee 100%);
+  border-radius: 1.25rem;
+  color: #ffffff;
+  padding: 1.5rem;
+  box-shadow: var(--shadow-service-card);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.service-card:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 20px 35px -5px rgba(0, 132, 255, 0.5);
+}
+
+.service-icon-circle {
+  width: 3.75rem;
+  height: 3.75rem;
+  border-radius: 9999px;
+  background-color: #ffffff;
+  color: #0084ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* Animations */
+@keyframes pulse-emergency {
+  0% { box-shadow: 0 0 0 0 rgba(225, 29, 72, 0.5); }
+  70% { box-shadow: 0 0 0 14px rgba(225, 29, 72, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(225, 29, 72, 0); }
+}
+
+@keyframes waveform-bar {
+  0%, 100% { height: 15%; }
+  50% { height: 95%; }
+}
+
+.wave-bar {
+  width: 4px;
+  background: linear-gradient(to top, #0084ff, #38bdf8);
+  border-radius: 9999px;
+  animation: waveform-bar 1.2s ease-in-out infinite;
+}
+
+.wave-bar:nth-child(2) { animation-delay: 0.15s; }
+.wave-bar:nth-child(3) { animation-delay: 0.3s; }
+.wave-bar:nth-child(4) { animation-delay: 0.45s; }
+.wave-bar:nth-child(5) { animation-delay: 0.6s; }
+.wave-bar:nth-child(6) { animation-delay: 0.75s; }
+.wave-bar:nth-child(7) { animation-delay: 0.9s; }
+.wave-bar:nth-child(8) { animation-delay: 1.05s; }
+
+/* Status Badges */
+.badge-urgent {
+  background: #fef2f2;
+  color: #b91c1c;
+  border: 1px solid #fecaca;
+}
+
+.badge-routine {
+  background: #ecfdf5;
+  color: #047857;
+  border: 1px solid #a7f3d0;
+}
+
+.badge-queue {
+  background: #eff6ff;
+  color: #1d4ed8;
+  border: 1px solid #bfdbfe;
+}
+
+.badge-critical {
+  background: #fff1f2;
+  color: #be123c;
+  border: 1px solid #fda4af;
+  animation: pulse-emergency 1.5s infinite;
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+::-webkit-scrollbar-thumb {
+  background: #93c5fd;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #60a5fa;
+}

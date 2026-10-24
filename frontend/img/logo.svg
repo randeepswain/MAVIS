@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="100%" height="100%">
+  <defs>
+    <!-- Vibrant Healthcare Blue Gradient Background -->
+    <linearGradient id="mavisBlueGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#005fd9" />
+      <stop offset="60%" stop-color="#0084ff" />
+      <stop offset="100%" stop-color="#149dff" />
+    </linearGradient>
+    
+    <!-- Bold Blue Soundwave Gradient -->
+    <linearGradient id="waveGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#004fc4" />
+      <stop offset="50%" stop-color="#006fee" />
+      <stop offset="100%" stop-color="#004fc4" />
+    </linearGradient>
+
+    <!-- Subtle Drop Shadow for Cross -->
+    <filter id="subtleCrossShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#003580" flood-opacity="0.2" />
+    </filter>
+  </defs>
+
+  <!-- Edge-to-edge filled squircle badge -->
+  <rect x="0" y="0" width="120" height="120" rx="28" fill="url(#mavisBlueGrad)" />
+
+  <!-- Inner subtle border highlight -->
+  <rect x="1" y="1" width="118" height="118" rx="27" fill="none" stroke="#ffffff" stroke-width="1.5" stroke-opacity="0.25" />
+
+  <!-- Clean Bold Medical Cross (Fills 75% of badge) -->
+  <g filter="url(#subtleCrossShadow)">
+    <!-- Vertical Cross Bar -->
+    <rect x="43" y="16" width="34" height="88" rx="9" fill="#ffffff" />
+    <!-- Horizontal Cross Bar -->
+    <rect x="16" y="43" width="88" height="34" rx="9" fill="#ffffff" />
+  </g>
+
+  <!-- Central Dynamic Voice Intake Soundwave Frequency (Main Point of Interest) -->
+  <path d="M 14,60 L 26,60 L 32,50 L 38,70 L 45,36 L 52,82 L 59,28 L 66,92 L 73,38 L 80,74 L 87,52 L 93,60 L 106,60" 
+        fill="none" 
+        stroke="url(#waveGrad)" 
+        stroke-width="6.5" 
+        stroke-linecap="round" 
+        stroke-linejoin="round" />
+
+  <!-- Dynamic Waveform Peak Node Accents -->
+  <circle cx="59" cy="28" r="4.2" fill="#004fc4" />
+  <circle cx="66" cy="92" r="4.2" fill="#004fc4" />
+</svg>
